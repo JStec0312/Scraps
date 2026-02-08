@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import "tailwindcss";
+
+:root{
+  --section-1-background-color: rgb(0,0,128);
+  --section-2-background-color:black;
+  --section-3-background-color: rgb(0,0,210);
+  --section-4-background-color: rgb(0,0,128);
+}
+@theme{
+  --font-header:"Cormorant Garamond", serif;
+  --font-body:"Montserrat", sans-serif;
+}
+
+/* Custom utility classes */
+.shadow-glow {
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.6), 0 0 10px rgba(255, 255, 255, 0.4);
+}
+
+*{
+  
+  scroll-behavior: smooth;
+}
+.form-input {
+  @apply w-full p-3 bg-transparent border border-gray-700 focus:border-blue-400 outline-none transition-colors;
+}
