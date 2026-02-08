@@ -1,0 +1,8 @@
+fastapi
+uvicorn
+python-dotenv
+requests
+stripe
+sqlalchemy
+psycopg2-binary
+alembic
