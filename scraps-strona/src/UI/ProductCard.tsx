@@ -2,20 +2,15 @@ import { motion, AnimatePresence } from "framer-motion"
 import { Link } from "react-router-dom"
 import { useState } from "react"
 import type { Product } from "@/types/product"
+import { useCartStore } from "@/store/cartStore"
+import {  useNavigate } from 'react-router-dom';
+
 const ProductCard = ({ product, onAddToCart }: { product: Product; onAddToCart?: (product: Product) => void }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const [isAddingToCart, setIsAddingToCart] = useState(false)
+  const addToCart = useCartStore((state) => state.addToCart)
+  const navigate = useNavigate()
 
-  const handleAddToCart = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault()
-    setIsAddingToCart(true)
-
-    onAddToCart?.(product)
-
-    setTimeout(() => {
-      setIsAddingToCart(false)
-    }, 600)
-  }
 
   return (
     <motion.div
@@ -98,6 +93,16 @@ const ProductCard = ({ product, onAddToCart }: { product: Product; onAddToCart?:
                 Więcej
               </motion.button>
             </Link>
+
+            <a href="/cart"
+              onClick={() => {
+                   setIsAddingToCart(true)
+                  addToCart({ ...product, quantity: 1 })
+              }}
+              className="border-2 border-blue-400 text-blue-200 hover:bg-blue-400 hover:text-blue-950 disabled:opacity-50 py-3 px-6 rounded-none transition-all duration-300 uppercase tracking-wider text-sm font-medium"
+            >
+              {isAddingToCart ? "Dodano!" : "Do koszyka"}
+            </a>
           </div>
         </div>
       </div>

@@ -3,6 +3,10 @@ import Layout from "./Layout"
 import HomePage from "./pages/home/page"
 import AnimatedProductDetails from "./pages/product/AnimatedProductDetails"
 import { getProductById } from "./api/products"
+import CartPage from "./pages/cart/page"
+import CheckoutPage from "./pages/checkout/page"
+
+
 
 const router = createBrowserRouter([
   {
@@ -19,7 +23,9 @@ const router = createBrowserRouter([
           return product
         },
 
-      }
+      },
+      { path: "/cart", element: <CartPage /> },
+      {path: "/checkout", element: <CheckoutPage />},
     ],
   },
 ])

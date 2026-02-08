@@ -1,21 +1,21 @@
 import { useEffect, useState } from "react"
 import { motion, AnimatePresence, type Variants } from "framer-motion"
-import { useLoaderData } from "react-router-dom"
+import { useLoaderData, useNavigate } from "react-router-dom"
 import ProductImageGallery from "./ProductImageGallery"
 import type { Product } from "@/types/product"
+import { useCartStore } from "@/store/cartStore"
 
 export default function AnimatedProductDetails() {
   const product = useLoaderData() as Product
   const [isLoaded, setIsLoaded] = useState(false)
   const [fullscreenImage, setFullscreenImage] = useState<string | null>(null)
-
+  const addToCart = useCartStore((state) => state.addToCart)
+  const navigate = useNavigate()
   useEffect(() => {
     setIsLoaded(true)
   }, [])
 
-  const handleAddToCart = (p: Product) => {
-    console.log(`Added ${p.name} to cart.`)
-  }
+  
 
   const fadeIn: Variants = {
     hidden: { opacity: 0, y: 20 },
@@ -176,7 +176,13 @@ export default function AnimatedProductDetails() {
             <motion.div className="mt-6" variants={fadeIn}>
               <motion.button
                 type="button"
-                onClick={() => handleAddToCart(product)}
+                onClick={() =>  {
+                  addToCart({ ...product, quantity: 1 });
+                  navigate("/cart");
+                  window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+
+                  
+                }}
                 className={
                   "w-full bg-blue-600 text-white py-4 uppercase tracking-wider text-sm font-medium transition-all duration-300" +
                   (product.stock <= 0 ? " cursor-not-allowed opacity-50" : " hover:bg-blue-700")

@@ -22,5 +22,29 @@
   scroll-behavior: smooth;
 }
 .form-input {
-  @apply w-full p-3 bg-transparent border border-gray-700 focus:border-blue-400 outline-none transition-colors;
+  @apply w-full p-3 bg-transparent border border-gray-700 focus:border-blue-400 outline-none text-white;
+}
+
+input.form-input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px #000 inset !important;
+  -webkit-text-fill-color: white !important;
+  background-color: transparent !important;
+  border-color: rgb(55, 65, 81) !important;
+}
+
+input.form-input:-webkit-autofill:hover,
+input.form-input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 1000px #000 inset !important;
+  -webkit-text-fill-color: white !important;
+  background-color: transparent !important;
+  border-color: rgb(96, 165, 250) !important;
+}
+
+.form-input:focus {
+  border-color: rgb(96, 165, 250);
+}
+
+select.form-input option {
+  background-color: #1f2937;
+  color: white;
 }
