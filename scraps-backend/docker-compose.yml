@@ -14,5 +14,30 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
 
+  api:
+    build: .
+    container_name: fastapi-shop
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: postgresql+asyncpg://shop_user:shop_pass@db:5432/shop_db
+    depends_on:
+      - db
+    volumes:
+      - .:/app
+
+  frontend:
+    image: node:20
+    container_name: vite-shop
+    working_dir: /app
+    command: sh -c "npm install && npm run dev -- --host"
+    ports:
+      - "5173:5173"
+    volumes:
+      - ../scraps-strona:/app
+    depends_on:
+      - api
+
 volumes:
   pgdata:

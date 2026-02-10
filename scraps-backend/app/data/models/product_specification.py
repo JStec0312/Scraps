@@ -1,17 +1,14 @@
 from __future__ import annotations
+from typing import TYPE_CHECKING
 
-from datetime import datetime
-from decimal import Decimal
-from typing import TYPE_CHECKING, List, Optional
-
-from sqlalchemy import ForeignKey, String, Text, Numeric, Integer, DateTime
-from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
+from sqlalchemy import ForeignKey, String
+from sqlalchemy.orm import  Mapped, mapped_column, relationship
 from app.infrastructure.base import Base
 
 if TYPE_CHECKING:
-    from app.models.product import Product
+    from app.data.models.product import ProductDto
 
-class ProductSpecification(Base):
+class ProductSpecificationDto(Base):
     __tablename__ = "product_specifications"
 
     id: Mapped[int] = mapped_column(primary_key=True)
@@ -25,4 +22,4 @@ class ProductSpecification(Base):
         index=True,
     )
 
-    product: Mapped["Product"] = relationship(back_populates="specifications")
+    product: Mapped["ProductDto"] = relationship(back_populates="specifications")

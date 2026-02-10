@@ -7,9 +7,9 @@ from sqlalchemy import pool
 from alembic import context
 from dotenv import load_dotenv
 from app.infrastructure.base import Base
-from app.models.product import Product
-from app.models.product_image import ProductImage
-from app.models.product_specification import ProductSpecification
+from app.data.models.product import ProductDto
+from app.data.models.product_image import ProductImageDto
+from app.data.models.product_specification import ProductSpecificationDto
 
 
 load_dotenv()

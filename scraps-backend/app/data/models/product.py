@@ -4,16 +4,15 @@ from datetime import datetime
 from decimal import Decimal
 from typing import List, Optional, TYPE_CHECKING
 
-from sqlalchemy import ForeignKey, String, Text, Numeric, Integer, DateTime
-from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
+from sqlalchemy import  String, Text, Numeric, Integer, DateTime, func
+from sqlalchemy.orm import  Mapped, mapped_column, relationship
 from app.infrastructure.base import Base
 
 if TYPE_CHECKING:
-    from app.models.product import Product
-    from app.models.product_image import ProductImage    
-    from app.models.product_specification import ProductSpecification
+    from app.data.models.product_image import ProductImageDto
+    from app.data.models.product_specification import ProductSpecificationDto
 
-class Product(Base):
+class ProductDto(Base):
     __tablename__ = "products"
 
     id: Mapped[int] = mapped_column(primary_key=True)
@@ -28,16 +27,16 @@ class Product(Base):
     category: Mapped[str] = mapped_column(String(100), nullable=False)
     stock: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
 
-    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=datetime.utcnow, nullable=False)
-    updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=datetime.utcnow, onupdate=datetime.utcnow, nullable=False)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now(), nullable=False)
+    updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now(), nullable=False)
 
-    images: Mapped[List["ProductImage"]] = relationship(
+    images: Mapped[List["ProductImageDto"]] = relationship(
         back_populates="product",
         cascade="all, delete-orphan",
         passive_deletes=True,
     )
 
-    specifications: Mapped[List["ProductSpecification"]] = relationship(
+    specifications: Mapped[List["ProductSpecificationDto"]] = relationship(
         back_populates="product",
         cascade="all, delete-orphan",
         passive_deletes=True,
