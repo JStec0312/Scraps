@@ -10,15 +10,16 @@ from app.infrastructure.base import Base
 from app.data.models.product import ProductDto
 from app.data.models.product_image import ProductImageDto
 from app.data.models.product_specification import ProductSpecificationDto
+from app.data.models.newsletter import NewsletterSubscriptionDto
 
 
 load_dotenv()
-database_url = os.getenv("DATABASE_URL")
+database_url = os.getenv("DATABASE_URL_SYNC")
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config
 if not database_url:
-    raise RuntimeError("DATABASE_URL missing")
+    raise RuntimeError("DATABASE_URL_SYNC missing")
 config.set_main_option("sqlalchemy.url", database_url)
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.
